@@ -12,6 +12,7 @@ public class QTSession implements Serializable {
 	private List<TaxBracket> tbList;
 	private String totalAnnualTaxPaid = "0";
 	private String totalAnnualTaxRate = "0";
+	private String filingStatus = "";
 
 	public QTSession() {
 		init();
@@ -67,6 +68,16 @@ public class QTSession implements Serializable {
 	public void setTotalAnnualTaxRate(String totalAnnualTaxRate) {
 		this.totalAnnualTaxRate = totalAnnualTaxRate;
 	}
+
+	public String getFilingStatus() {
+		return filingStatus;
+	}
+
+	public void setFilingStatus(String filingStatus) {
+		this.filingStatus = filingStatus;
+	}
+	
+	
 	
 	
 

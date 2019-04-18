@@ -20,8 +20,7 @@ import org.util.Calculator;
 public class QuickTaxCalcController {
 
 	@GetMapping("/qtcalc")
-	public String qtCalcController(Model model, @ModelAttribute QTHomeForm qtHomeForm,
-			HttpSession session) {
+	public String qtCalcController(Model model, @ModelAttribute QTHomeForm qtHomeForm, HttpSession session) {
 
 		QTSession qtSession = (QTSession) session.getAttribute("qtSession");
 		if (qtSession == null || !qtSession.isInit()) {
@@ -29,7 +28,9 @@ public class QuickTaxCalcController {
 		}
 		DecimalFormat df = new DecimalFormat("#.00");
 
-		if (qtHomeForm.getIncome() > 0 && !(qtHomeForm.getIncome() == Double.parseDouble(qtSession.getIncome()))) {
+		if (qtHomeForm.getIncome() > 0 && (!(qtHomeForm.getIncome() == Double.parseDouble(qtSession.getIncome()))
+				|| !(qtHomeForm.getFilingStatus().equalsIgnoreCase(qtSession.getFilingStatus())))) {
+
 			List<TaxBracket> tbList = new ArrayList<TaxBracket>();
 
 			tbList = Calculator.process(qtHomeForm.getIncome(), qtHomeForm.getFilingStatus());
@@ -37,6 +38,7 @@ public class QuickTaxCalcController {
 			qtSession.setRateCalculated(true);
 			qtSession.setTbList(tbList);
 			qtSession.setIncome(df.format(qtHomeForm.getIncome()));
+			qtSession.setFilingStatus(qtHomeForm.getFilingStatus());
 
 			String annualTaxPaid = Calculator.calculateTotalTax(tbList);
 			String annualTaxRate = Calculator.calculateTaxRate(qtHomeForm.getIncome(), annualTaxPaid);

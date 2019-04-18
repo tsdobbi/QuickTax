@@ -23,6 +23,13 @@ html, body, h1, h2, h3, h4, h5, h6 {
 	height: inherit;
 }
 </style>
+
+<script type="text/javascript">
+
+function ftSelect(filing_type){
+	document.getElementById('filingStatus').value = filing_type;
+}
+</script>
 <body>
 
 	<!-- Navbar -->
@@ -80,13 +87,13 @@ html, body, h1, h2, h3, h4, h5, h6 {
 
 				<form action="#" th:action="@{/qtcalc}" th:object="${qtHomeForm}">
 
-					Enter Income: $<input type="number" min="0.01" step="0.01"
+					Enter Income: $ <input type="number" min="0.01" step="0.01"
 						th:value="*{income}" name="income" id="income"> <br>
 
 
-					Filing Status: <select>
+					Filing Status: <select onchange="ftSelect(this.value)">
 						<option th:each="fs : *{filingStatusList}" th:value="${fs.key}"
-							th:text="${fs.value}" onclick="ftSelect(this.value)">
+							th:text="${fs.value}">
 							</option>
 					</select> <br> 
 					
@@ -148,9 +155,7 @@ html, body, h1, h2, h3, h4, h5, h6 {
 			overlayBg.style.display = "none";
 		}
 		
-		function ftSelect(filing_type){
-			document.getElementById('filingStatus').value = filing_type;
-		}
+
 	</script>
 
 </body>

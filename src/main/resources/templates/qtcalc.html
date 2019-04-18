@@ -69,18 +69,18 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 	</thead>
 	<tr th:each="taxBracket : ${session.qtSession.tbList}">
 	<td th:text="${taxBracket.getPercentageText()}"></td>
-	<td th:text="${taxBracket.getTaxableIncome()}"></td>
-	<td th:text="${taxBracket.getTotalTaxForBracket()}"></td>
+	<td th:text="${'$ ' + taxBracket.getTaxableIncome()}"></td>
+	<td th:text="${'$ ' + taxBracket.getTotalTaxForBracket()}"></td>
 	<tr>
 	</table>
 	<table>
 	<tr>
 	<td>Total Annual Taxes Paid: </td>
-	<td th:text="${'$' + session.qtSession.totalAnnualTaxPaid}"></td>
+	<td th:text="${'$ ' + session.qtSession.totalAnnualTaxPaid}"></td>
 	</tr>
 	<tr>
 	<td>Effective Annual Tax Rate: </td>
-	<td th:text="${'%' + session.qtSession.totalAnnualTaxRate}"></td>
+	<td th:text="${session.qtSession.totalAnnualTaxRate + ' %'}"></td>
 	</tr>
 	</table>
 	

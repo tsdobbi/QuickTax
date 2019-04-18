@@ -8,11 +8,12 @@ import static org.util.Constants.*;
 import org.model.TaxBracket;
 
 public class Calculator {
+	
+	private static DecimalFormat df = new DecimalFormat("#.00");
 
 	public static TaxBracket percentCalc(double fincome, double currentBracket, double nextBracket, double percent,
 			String bracketString) {
 		TaxBracket bracket = new TaxBracket();
-		DecimalFormat df = new DecimalFormat("#.00");
 		double taxAmount = 0;
 		bracket.setIncome(df.format(fincome));
 		bracket.setNextBracketPercent(df.format(nextBracket));
@@ -79,7 +80,6 @@ public class Calculator {
 	}
 
 	public static String calculateTotalTax(List<TaxBracket> tbList) {
-		DecimalFormat df = new DecimalFormat("#.00");
 		String totalTax;
 		double total = 0.00;
 		for (TaxBracket taxBracket : tbList) {
@@ -92,7 +92,6 @@ public class Calculator {
 	}
 
 	public static String calculateTaxRate(Double income, String totalTaxesString) {
-		DecimalFormat df = new DecimalFormat("#.00");
 		String totalTaxRate;
 		double totalTaxes = Double.parseDouble(totalTaxesString);
 		double rate = totalTaxes / income;
@@ -105,7 +104,6 @@ public class Calculator {
 	}
 
 	public static String monthlyTaxes(String totalTaxesString) {
-		DecimalFormat df = new DecimalFormat("#.00");
 		double totalTaxes = Double.parseDouble(totalTaxesString);
 		double monthlyTaxes = totalTaxes / 12;
 		String totalMonthlyTaxes = df.format(monthlyTaxes);
@@ -115,7 +113,6 @@ public class Calculator {
 	}
 
 	public static String monthlySalary(double fincome, String monthlyTax) {
-		DecimalFormat df = new DecimalFormat("#.00");
 		double monthlyTaxes = Double.parseDouble(monthlyTax);
 		double monthlyIncomeAfterTax = fincome - monthlyTaxes;
 		String totalMonthlyIncomeAfterTaxes = df.format(monthlyIncomeAfterTax);
