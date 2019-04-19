@@ -25,10 +25,9 @@ html, body, h1, h2, h3, h4, h5, h6 {
 </style>
 
 <script type="text/javascript">
-
-function ftSelect(filing_type){
-	document.getElementById('filingStatus').value = filing_type;
-}
+	function ftSelect(filing_type) {
+		document.getElementById('filingStatus').value = filing_type;
+	}
 </script>
 <body>
 
@@ -91,16 +90,12 @@ function ftSelect(filing_type){
 						th:value="*{income}" name="income" id="income"> <br>
 
 
-					Filing Status: <select onchange="ftSelect(this.value)">
+					Filing Status: <select name="fstatusS" id="fstatusS" >
 						<option th:each="fs : *{filingStatusList}" th:value="${fs.key}"
-							th:text="${fs.value}">
-							</option>
-					</select> <br> 
-					
-					<input type="hidden" id="filingStatus"
+							th:text="${fs.value}"></option>
+					</select> <br> <input type="hidden" id="filingStatus"
 						name="filingStatus" th:value="*{filingStatus}"> 
-						
-						<input
+						<input onclick="ftSelect(fstatusS.value)"
 						type="submit" value="Submit">
 				</form>
 
@@ -154,8 +149,6 @@ function ftSelect(filing_type){
 			mySidebar.style.display = "none";
 			overlayBg.style.display = "none";
 		}
-		
-
 	</script>
 
 </body>

@@ -1,10 +1,14 @@
 package org.util;
 
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+
 import static org.util.Constants.*;
 
+import org.model.QTCalcForm;
 import org.model.TaxBracket;
 
 public class Calculator {
@@ -119,6 +123,34 @@ public class Calculator {
 
 		return totalMonthlyIncomeAfterTaxes;
 
+	}
+	
+	public static String currencyFormat(String value) {
+		double valueDouble = Double.parseDouble(value);
+		Locale locale = new Locale("en", "US");      
+		NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+		return currencyFormatter.format(valueDouble);
+	}
+	
+	public static QTCalcForm setupCalcForm(List<TaxBracket> tbList, String income, String filingStatus, String taxPaid, String taxRate) {
+		QTCalcForm qtCalcForm = new QTCalcForm();
+		List<TaxBracket> tbListNew = new ArrayList<>();
+		for(TaxBracket tb: tbList) {
+			TaxBracket tbNew = new TaxBracket();
+			tbNew.setIncome(currencyFormat(tb.getIncome()));
+			tbNew.setNextBracketPercent(tb.getNextBracketPercent());
+			tbNew.setPercentage(tb.getPercentage());
+			tbNew.setPercentageText(tb.getPercentageText());
+			tbNew.setTaxableIncome(currencyFormat(tb.getTaxableIncome()));
+			tbNew.setTotalTaxForBracket(currencyFormat(tb.getTotalTaxForBracket()));
+			tbListNew.add(tbNew);		
+		}
+		qtCalcForm.setTbList(tbListNew);
+		qtCalcForm.setEffectiveTaxRate(taxRate);
+		qtCalcForm.setAnnualTaxPaid(currencyFormat(taxPaid));
+		qtCalcForm.setFilingStatus(filingStatus);
+		qtCalcForm.setIncome(currencyFormat(income));
+		return qtCalcForm;
 	}
 
 }
